@@ -1,6 +1,6 @@
 package fr.rb.gestsio;
 
-public class Apretiation {
+public class Appreciation {
     private int idEtudiant;
      private String observationEtudiant ;
 

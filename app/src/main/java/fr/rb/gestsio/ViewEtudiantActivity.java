@@ -2,19 +2,13 @@ package fr.rb.gestsio;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -73,12 +67,12 @@ public class ViewEtudiantActivity extends AppCompatActivity  {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 //instance pour interface
-        InterAppretiation interAppretiation = retrofit.create(InterAppretiation.class);
-        Call<List<Apretiation>> call = interAppretiation.getAppretiation(etudiant.getIdEtudiant());
+        InterAppreciation interAppreciation = retrofit.create(InterAppreciation.class);
+        Call<List<Appreciation>> call = interAppreciation.getAppretiation(etudiant.getIdEtudiant());
 
-        call.enqueue(new Callback<List<Apretiation>>() {
+        call.enqueue(new Callback<List<Appreciation>>() {
             @Override
-            public void onResponse(Call<List<Apretiation>> call, Response<List<Apretiation>> response) {
+            public void onResponse(Call<List<Appreciation>> call, Response<List<Appreciation>> response) {
                 //verifier la reponse
                 if(response.code() != 200){
                     textreponse.setText("verifie la connetion" +response.code());
@@ -87,10 +81,10 @@ public class ViewEtudiantActivity extends AppCompatActivity  {
                 if (!response.isSuccessful()){
                     textreponse.setText("verifie la connetion" +response.code());
                 }
-                List<Apretiation> apretiations = response.body();
-                for (Apretiation apretiation: apretiations){
+                List<Appreciation> appreciations = response.body();
+                for (Appreciation appreciation : appreciations){
                     String responseTest = "";
-                    responseTest += apretiation.getObservationEtudiant() + "\n\n";
+                    responseTest += appreciation.getObservationEtudiant() + "\n\n";
                     textreponse.append(responseTest);
                 }
               //  String json = "ID=" + response.body().getIdEtudiant() +
@@ -100,7 +94,7 @@ public class ViewEtudiantActivity extends AppCompatActivity  {
             }
 
             @Override
-            public void onFailure(Call<List<Apretiation>> call, Throwable t) {
+            public void onFailure(Call<List<Appreciation>> call, Throwable t) {
                 textreponse.setText(t.getMessage());
             }
         });
