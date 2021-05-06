@@ -1,4 +1,4 @@
-package fr.rb.gestsio;
+package fr.projet.gestsio;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

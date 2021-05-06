@@ -1,4 +1,4 @@
-package fr.rb.gestsio;
+package fr.projet.gestsio;
 
 /*
  * Copyright (C) 2017 Google Inc.

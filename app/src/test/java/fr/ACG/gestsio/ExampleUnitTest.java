@@ -1,4 +1,4 @@
-package fr.rb.gestsio;
+package fr.ACG.gestsio;
 
 import org.junit.Test;
 

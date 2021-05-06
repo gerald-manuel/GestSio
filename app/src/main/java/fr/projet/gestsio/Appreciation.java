@@ -1,4 +1,4 @@
-package fr.rb.gestsio;
+package fr.projet.gestsio;
 
 public class Appreciation {
     private int idEtudiant;

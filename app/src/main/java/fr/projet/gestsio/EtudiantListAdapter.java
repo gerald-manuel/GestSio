@@ -1,5 +1,5 @@
 
-package fr.rb.gestsio;
+package fr.projet.gestsio;
 /*
  * Copyright (C) 2017 Google Inc.
  *
@@ -25,10 +25,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.Serializable;
 import java.util.List;
+
+import fr.ACG.gestsio.R;
 
 public class EtudiantListAdapter extends RecyclerView.Adapter<EtudiantListAdapter.EtudiantViewHolder> {
 
@@ -43,7 +43,7 @@ public class EtudiantListAdapter extends RecyclerView.Adapter<EtudiantListAdapte
         private final TextView nomItemView;
         private final TextView prenomItemView;
         private final TextView naissanceItemView;
-        public static final String EXTRA_REPLY_ETUDIANT_LA = "fr.rb.gestsio.REPLY_ETUDIANT_LA";
+        public static final String EXTRA_REPLY_ETUDIANT_LA = "fr.ACG.gestsio.REPLY_ETUDIANT_LA";
 
 
         private EtudiantViewHolder(View itemView) {

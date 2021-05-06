@@ -1,4 +1,4 @@
-package fr.rb.gestsio;
+package fr.projet.gestsio;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

@@ -1,4 +1,4 @@
-package fr.rb.gestsio;
+package fr.projet.gestsio;
 
 import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;

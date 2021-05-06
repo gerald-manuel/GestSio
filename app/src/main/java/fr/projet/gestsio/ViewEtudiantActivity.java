@@ -1,4 +1,4 @@
-package fr.rb.gestsio;
+package fr.projet.gestsio;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
 
+import fr.ACG.gestsio.R;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,7 +34,7 @@ public class ViewEtudiantActivity extends AppCompatActivity  {
     private TextView mTextViewObservations;
     private TextView mTextViewAppreciation;
 
-    public static final String EXTRA_REPLY_VIEW = "fr.rb.gestsio.REPLY_VIEW";
+    public static final String EXTRA_REPLY_VIEW = "fr.ACG.gestsio.REPLY_VIEW";
 
 
     //@Override
@@ -84,7 +85,7 @@ public class ViewEtudiantActivity extends AppCompatActivity  {
                 List<Appreciation> Appreciations = response.body();
                 for (Appreciation Appreciation : Appreciations){
                     String responseTest = "";
-                    responseTest += Appreciation.getObservationEtudiant() + "\n\n";
+                    responseTest += Appreciation.getObservationEtudiant() + "\n";
                     textreponse.append(responseTest);
                 }
               //  String json = "ID=" + response.body().getIdEtudiant() +

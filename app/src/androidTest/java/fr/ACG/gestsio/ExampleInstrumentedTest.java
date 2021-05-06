@@ -1,4 +1,4 @@
-package fr.rb.gestsio;
+package fr.ACG.gestsio;
 
 import android.content.Context;
 

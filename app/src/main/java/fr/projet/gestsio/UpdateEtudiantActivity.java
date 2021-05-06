@@ -1,4 +1,4 @@
-package fr.rb.gestsio;
+package fr.projet.gestsio;
 
 /*
  * Copyright (C) 2017 Google Inc.
@@ -29,13 +29,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Calendar;
 
+import fr.ACG.gestsio.R;
+
 /**
- * Activity for entering a etudiant.
+ * Activity for updating a student.
  */
 
-public class NewEtudiantActivity extends AppCompatActivity {
+public class UpdateEtudiantActivity extends AppCompatActivity {
 
-    public static final String EXTRA_REPLY_NEW = "fr.rb.gestsio.REPLY_NEW";
+    public static final String EXTRA_REPLY_UPDATE = "fr.ACG.gestsio.REPLY_UPDATE";
 
     private EditText mEditNomView;
     private EditText mEditPrenomView;
@@ -47,15 +49,15 @@ public class NewEtudiantActivity extends AppCompatActivity {
     private EditText mEditTelView;
     private EditText mEditCourrielView;
     private EditText mEditObservationsView;
+    private Etudiant etudiant;
     DatePickerDialog datePickerDialog;
 
-
-    private Etudiant etudiant;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_etudiant);
+        setContentView(R.layout.activity_update_etudiant);
+
         mEditNomView = findViewById(R.id.editNom);
         mEditPrenomView = findViewById(R.id.editPrenom);
         mEditNaissanceView=findViewById(R.id.editNaissanceEtudiant);
@@ -66,9 +68,14 @@ public class NewEtudiantActivity extends AppCompatActivity {
         mEditTelView=findViewById(R.id.editTelEtudiant);
         mEditCourrielView=findViewById(R.id.editCourrielEtudiant);
         mEditObservationsView=findViewById(R.id.editObservationsEtudiant);
-        
+
+        final Etudiant etudiant = (Etudiant) getIntent().getSerializableExtra(ViewEtudiantActivity.EXTRA_REPLY_VIEW);
+        int idEtudiant=etudiant.getIdEtudiant();
+
+        loadEtudiant(etudiant);
 
 
+        //sauvegarde étudiant
         final Button button = findViewById(R.id.button_save);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -77,24 +84,28 @@ public class NewEtudiantActivity extends AppCompatActivity {
 
                 if ((TextUtils.isEmpty(mEditNomView.getText())) || (TextUtils.isEmpty(mEditPrenomView.getText())) ||
                         (TextUtils.isEmpty(mEditNaissanceView.getText()))) {
+
                     setResult(RESULT_CANCELED, replyIntent);
-                } else {
+                }
+
+                else {
                     String nomEtudiant = mEditNomView.getText().toString();
                     String prenomEtudiant = mEditPrenomView.getText().toString();
-                    String naissanceEtudiant = mEditNaissanceView.getText().toString();
-                    String speEtudiant = mEditSpeView.getText().toString();
-                    String adresseEtudiant = mEditAdresseView.getText().toString();
-                    String cpEtudiant = mEditCpView.getText().toString();
-                    String villeEtudiant = mEditVilleView.getText().toString();
-                    String telEtudiant = mEditTelView.getText().toString();
-                    String courrierEtudiant = mEditCourrielView.getText().toString();
-                    String observationsEtudiant = mEditObservationsView.getText().toString();
+                    String naissanceEtudiant=mEditNaissanceView.getText().toString();
+                    String speEtudiant=mEditSpeView.getText().toString();
+                    String adresseEtudiant=mEditAdresseView.getText().toString();
+                    String cpEtudiant=mEditCpView.getText().toString();
+                    String villeEtudiant=mEditVilleView.getText().toString();
+                    String telEtudiant=mEditTelView.getText().toString();
+                    String courrierEtudiant=mEditCourrielView.getText().toString();
+                    String observationsEtudiant=mEditObservationsView.getText().toString();
 
                     Etudiant etudiant = new Etudiant();
+                    etudiant.setIdEtudiant(idEtudiant);
                     etudiant.setNomEtudiant(nomEtudiant);
                     etudiant.setPrenomEtudiant(prenomEtudiant);
                     etudiant.setNaissanceEtudiant(naissanceEtudiant);
-                    etudiant.setSpeEtudiant((speEtudiant));
+                    etudiant.setSpeEtudiant(speEtudiant);
                     etudiant.setAdresseEtudiant(adresseEtudiant);
                     etudiant.setCpEtudiant(cpEtudiant);
                     etudiant.setVilleEtudiant(villeEtudiant);
@@ -102,13 +113,25 @@ public class NewEtudiantActivity extends AppCompatActivity {
                     etudiant.setCourrielEtudiant(courrierEtudiant);
                     etudiant.setObservationsEtudiant(observationsEtudiant);
 
-                    replyIntent.putExtra(EXTRA_REPLY_NEW, etudiant);
+                    replyIntent.putExtra(EXTRA_REPLY_UPDATE, etudiant);
                     setResult(RESULT_OK, replyIntent);
-
                 }
                 finish();
             }
         });
+
+    }
+
+    private void loadEtudiant(Etudiant etudiant) {
+        mEditNomView.setText(etudiant.getNomEtudiant());
+        mEditPrenomView.setText(etudiant.getPrenomEtudiant());
+        mEditSpeView.setText(etudiant.getSpeEtudiant());
+        mEditAdresseView.setText(etudiant.getAdresseEtudiant());
+        mEditCpView.setText(etudiant.getCpEtudiant());
+        mEditVilleView.setText(etudiant.getVilleEtudiant());
+        mEditTelView.setText(etudiant.getTelEtudiant());
+        mEditCourrielView.setText(etudiant.getCourrielEtudiant());
+        mEditObservationsView.setText(etudiant.getObservationsEtudiant());
         mEditNaissanceView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +141,7 @@ public class NewEtudiantActivity extends AppCompatActivity {
                 int mMonth = c.get(Calendar.MONTH); // current month
                 int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
                 // date picker dialog
-                datePickerDialog = new DatePickerDialog(NewEtudiantActivity.this,/*android.R.style.Theme_Holo_Light_Dialog_MinWidth,*/
+                datePickerDialog = new DatePickerDialog(UpdateEtudiantActivity.this,/*android.R.style.Theme_Holo_Light_Dialog_MinWidth,*/
                         new DatePickerDialog.OnDateSetListener() {
 
                             @Override
@@ -137,7 +160,6 @@ public class NewEtudiantActivity extends AppCompatActivity {
             }
 
         });
-
     }
 }
 

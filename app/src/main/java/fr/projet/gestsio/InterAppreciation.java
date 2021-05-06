@@ -1,4 +1,4 @@
-package fr.rb.gestsio;
+package fr.projet.gestsio;
 
 import java.util.List;
 
@@ -10,5 +10,4 @@ public interface InterAppreciation {
 
     @GET("getEtudiant.php?")
     Call<List<Appreciation>> getAppreciation(@Query("idEtudiant") int idEtudiant);
-
 }
