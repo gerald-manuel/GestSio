@@ -16,14 +16,18 @@ package fr.rb.gestsio;
  * limitations under the License.
  */
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Calendar;
 
 /**
  * Activity for updating a student.
@@ -44,6 +48,8 @@ public class UpdateEtudiantActivity extends AppCompatActivity {
     private EditText mEditCourrielView;
     private EditText mEditObservationsView;
     private Etudiant etudiant;
+    DatePickerDialog datePickerDialog;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -111,12 +117,12 @@ public class UpdateEtudiantActivity extends AppCompatActivity {
                 finish();
             }
         });
+
     }
 
     private void loadEtudiant(Etudiant etudiant) {
         mEditNomView.setText(etudiant.getNomEtudiant());
         mEditPrenomView.setText(etudiant.getPrenomEtudiant());
-        mEditNaissanceView.setText(etudiant.getNaissanceEtudiant());
         mEditSpeView.setText(etudiant.getSpeEtudiant());
         mEditAdresseView.setText(etudiant.getAdresseEtudiant());
         mEditCpView.setText(etudiant.getCpEtudiant());
@@ -124,6 +130,34 @@ public class UpdateEtudiantActivity extends AppCompatActivity {
         mEditTelView.setText(etudiant.getTelEtudiant());
         mEditCourrielView.setText(etudiant.getCourrielEtudiant());
         mEditObservationsView.setText(etudiant.getObservationsEtudiant());
+        mEditNaissanceView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // calender class's instance and get current date , month and year from calender
+                final Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR); // current year
+                int mMonth = c.get(Calendar.MONTH); // current month
+                int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+                // date picker dialog
+                datePickerDialog = new DatePickerDialog(UpdateEtudiantActivity.this,/*android.R.style.Theme_Holo_Light_Dialog_MinWidth,*/
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                // set day of month , month and year value in the edit text
+                                mEditNaissanceView.setText(dayOfMonth + "/"
+                                        + (monthOfYear + 1) + "/" + year);
+
+                            }
+                        }, mYear, mMonth, mDay);
+                // datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.setTitle("Date Naissance");
+                datePickerDialog.show();
+
+            }
+
+        });
     }
 }
 

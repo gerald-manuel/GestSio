@@ -16,14 +16,18 @@ package fr.rb.gestsio;
  * limitations under the License.
  */
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Calendar;
 
 /**
  * Activity for entering a etudiant.
@@ -43,7 +47,7 @@ public class NewEtudiantActivity extends AppCompatActivity {
     private EditText mEditTelView;
     private EditText mEditCourrielView;
     private EditText mEditObservationsView;
-
+    DatePickerDialog datePickerDialog;
 
 
     private Etudiant etudiant;
@@ -74,19 +78,17 @@ public class NewEtudiantActivity extends AppCompatActivity {
                 if ((TextUtils.isEmpty(mEditNomView.getText())) || (TextUtils.isEmpty(mEditPrenomView.getText())) ||
                         (TextUtils.isEmpty(mEditNaissanceView.getText()))) {
                     setResult(RESULT_CANCELED, replyIntent);
-                }
-
-                else {
+                } else {
                     String nomEtudiant = mEditNomView.getText().toString();
                     String prenomEtudiant = mEditPrenomView.getText().toString();
-                    String naissanceEtudiant=mEditNaissanceView.getText().toString();
-                    String speEtudiant=mEditSpeView.getText().toString();
-                    String adresseEtudiant=mEditAdresseView.getText().toString();
-                    String cpEtudiant=mEditCpView.getText().toString();
-                    String villeEtudiant=mEditVilleView.getText().toString();
-                    String telEtudiant=mEditTelView.getText().toString();
-                    String courrierEtudiant=mEditCourrielView.getText().toString();
-                    String observationsEtudiant=mEditObservationsView.getText().toString();
+                    String naissanceEtudiant = mEditNaissanceView.getText().toString();
+                    String speEtudiant = mEditSpeView.getText().toString();
+                    String adresseEtudiant = mEditAdresseView.getText().toString();
+                    String cpEtudiant = mEditCpView.getText().toString();
+                    String villeEtudiant = mEditVilleView.getText().toString();
+                    String telEtudiant = mEditTelView.getText().toString();
+                    String courrierEtudiant = mEditCourrielView.getText().toString();
+                    String observationsEtudiant = mEditObservationsView.getText().toString();
 
                     Etudiant etudiant = new Etudiant();
                     etudiant.setNomEtudiant(nomEtudiant);
@@ -107,6 +109,35 @@ public class NewEtudiantActivity extends AppCompatActivity {
                 finish();
             }
         });
+        mEditNaissanceView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // calender class's instance and get current date , month and year from calender
+                final Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR); // current year
+                int mMonth = c.get(Calendar.MONTH); // current month
+                int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+                // date picker dialog
+                datePickerDialog = new DatePickerDialog(NewEtudiantActivity.this,/*android.R.style.Theme_Holo_Light_Dialog_MinWidth,*/
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                // set day of month , month and year value in the edit text
+                                mEditNaissanceView.setText(dayOfMonth + "/"
+                                        + (monthOfYear + 1) + "/" + year);
+
+                            }
+                        }, mYear, mMonth, mDay);
+                // datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.setTitle("Date Naissance");
+                datePickerDialog.show();
+
+            }
+
+        });
+
     }
 }
 
