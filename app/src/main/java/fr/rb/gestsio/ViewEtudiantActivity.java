@@ -31,7 +31,7 @@ public class ViewEtudiantActivity extends AppCompatActivity  {
     private TextView mTextViewTel;
     private TextView mTextViewCourriel;
     private TextView mTextViewObservations;
-    private TextView mTextViewAppretiation;
+    private TextView mTextViewAppreciation;
 
     public static final String EXTRA_REPLY_VIEW = "fr.rb.gestsio.REPLY_VIEW";
 
@@ -60,7 +60,7 @@ public class ViewEtudiantActivity extends AppCompatActivity  {
 
 
         loadEtudiant(etudiant);
-        textreponse=findViewById(R.id.textViewAppretiation);
+        textreponse=findViewById(R.id.textViewAppreciation);
 //retrofilt builder
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://165.169.241.28:31195/MyApi/")
@@ -68,7 +68,7 @@ public class ViewEtudiantActivity extends AppCompatActivity  {
                 .build();
 //instance pour interface
         InterAppreciation interAppreciation = retrofit.create(InterAppreciation.class);
-        Call<List<Appreciation>> call = interAppreciation.getAppretiation(etudiant.getIdEtudiant());
+        Call<List<Appreciation>> call = interAppreciation.getAppreciation(etudiant.getIdEtudiant());
 
         call.enqueue(new Callback<List<Appreciation>>() {
             @Override
@@ -81,14 +81,14 @@ public class ViewEtudiantActivity extends AppCompatActivity  {
                 if (!response.isSuccessful()){
                     textreponse.setText("verifie la connetion" +response.code());
                 }
-                List<Appreciation> appreciations = response.body();
-                for (Appreciation appreciation : appreciations){
+                List<Appreciation> Appreciations = response.body();
+                for (Appreciation Appreciation : Appreciations){
                     String responseTest = "";
-                    responseTest += appreciation.getObservationEtudiant() + "\n\n";
+                    responseTest += Appreciation.getObservationEtudiant() + "\n\n";
                     textreponse.append(responseTest);
                 }
               //  String json = "ID=" + response.body().getIdEtudiant() +
-                //        "\n Appretiation= " + response.body().getObservationEtudiant();
+                //        "\n Appreciation= " + response.body().getObservationEtudiant();
 
 
             }

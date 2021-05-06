@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/textViewAppretiation"
+                android:id="@+id/textViewAppreciation"
                 style="@style/text_view_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

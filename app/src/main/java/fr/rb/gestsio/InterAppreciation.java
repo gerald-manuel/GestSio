@@ -9,6 +9,6 @@ import retrofit2.http.Query;
 public interface InterAppreciation {
 
     @GET("getEtudiant.php?")
-    Call<List<Appreciation>> getAppretiation(@Query("idEtudiant") int idEtudiant);
+    Call<List<Appreciation>> getAppreciation(@Query("idEtudiant") int idEtudiant);
 
 }
